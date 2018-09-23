@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>3c634e46-7fc2-4e58-8d33-7564edabb64a</UserSecretsId>
   </PropertyGroup>
 
@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Starter.Core\Starter.Core.csproj" />
-    <ProjectReference Include="..\Starter.Infrastructure\Starter.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

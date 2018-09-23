@@ -8,7 +8,5 @@ namespace Starter.Web
     public class Settings
     {
         public string AppVersion { get; set; }
-        public string ApiUrl { get; set; }
-        public string PubNubSubKey { get; set; }
     }
 }

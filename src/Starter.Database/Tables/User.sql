@@ -1,8 +1,9 @@
 ﻿CREATE TABLE [dbo].[User]
 (
-	[Id] INT NOT NULL,
+	[Id] INT IDENTITY(1, 1) NOT NULL,
 	[Email] NVARCHAR(200) NOT NULL,
-	[DisplayName] NVARCHAR(200) NOT NULL,
+	[Name] NVARCHAR(200) NOT NULL,
+	[CreatedAt] DATETIME2 NOT NULL
 
 	CONSTRAINT [PK_User_Id] PRIMARY KEY ([Id]),
 	CONSTRAINT [UQ_User_Email] UNIQUE ([Email])

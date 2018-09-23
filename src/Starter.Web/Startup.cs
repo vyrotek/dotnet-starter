@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Starter.Core;
 
 namespace Starter.Web
@@ -22,17 +24,24 @@ namespace Starter.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Options            
+            // Options           
             services.AddOptions();
-            services.Configure<Starter.Web.Settings>(Configuration.GetSection("Starter.App"));
-            services.Configure<Starter.Core.Settings>(Configuration.GetSection("Starter.Core"));
+            services.Configure<Web.Settings>(Configuration.GetSection("Starter.App"));
+            services.Configure<Core.Settings>(Configuration.GetSection("Starter.Core"));
 
-            // Services     
-            services.AddMvc();
+            // MVC     
+            services.AddMvc()
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            .AddJsonOptions(options =>
+            {
+                options.SerializerSettings.Formatting = Formatting.Indented;
+            });
+
+            // Dependencies
             services.AddWebDependencies();
             services.AddCoreDependencies();
 
-            // In production, the Angular files will be served from this directory
+            // SPA
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "Client/dist";
@@ -40,7 +49,7 @@ namespace Starter.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Settings settings)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Core.Settings settings)
         {
             // Logging
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
