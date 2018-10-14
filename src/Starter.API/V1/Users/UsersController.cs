@@ -12,25 +12,28 @@ namespace Starter.API.V1.Users
     public class UsersController : APIController
     {
         private ILogger _logger;
-        private UserService _userService;
-        
+        private UserService _userSvc;
+
         public UsersController(ILogger<UsersController> logger, UserService userService)
         {
             _logger = logger;
-            _userService = userService;
+            _userSvc = userService;
         }
 
-        [HttpGet("GetUser")]
-        public async Task<User> GetUser(int id)
+        [HttpGet]
+        public async Task<List<User>> GetUsers()
         {
-            var user = await _userService.GetUser(id);
+            var users = await _userSvc.GetUsers();
 
-            _logger.LogInformation("NEAT STUFF");
+            _logger.LogInformation("Retrieved Users");
 
-            return new User()
+            return users.Select(u => new User
             {
-                Name = user.Name
-            };
+                Id = u.Id,
+                Name = u.Name,
+                Email = u.Email,
+                CreatedAt = u.CreatedAt
+            }).ToList();
         }
     }
 }

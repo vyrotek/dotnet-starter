@@ -18,6 +18,14 @@ namespace Starter.Core.Services.Users
             _db = db;
         }        
 
+        public async Task<List<User>> GetUsers()
+        {
+            using (var conn = _db.GetConnection())
+            {
+                return await conn.Users.ToListAsync();
+            }
+        }
+
         public async Task<User> GetUser(int id)
         {
             using (var conn = _db.GetConnection())
